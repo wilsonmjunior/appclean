@@ -1,20 +1,26 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import './shared/container'
 
-import { CreateUser } from './views/pages/CreateUser';
+import { CreateModal } from './views/pages/CreateModal';
 
 const queryClient = new QueryClient()
 
 export default function App() {
+  const [visible, setVisible] = useState(false)
+
   return (
     <QueryClientProvider client={queryClient}>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Clean Architecture</Text>
-        <CreateUser />
-      </View>
+      <RectButton
+        style={{ marginTop: 100, alignItems: 'center' }}
+        onPress={() => setVisible(true)}
+      >
+        <Text>Abrir</Text>
+      </RectButton>
+      <CreateModal visible={visible} onClose={setVisible} />
     </QueryClientProvider>
   );
 }
